@@ -1,0 +1,31 @@
+[gd_scene format=3 uid="uid://cevewper3sjva"]
+
+[ext_resource type="Script" uid="uid://s5c01wdq6kss" path="res://scripts/Coin.gd" id="1_owubc"]
+[ext_resource type="AudioStream" uid="uid://brm1rvr5hd8rr" path="res://assets/AUDIO/Chimes_Transition_SFX.mp3" id="2_kyq3r"]
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_g4v7s"]
+
+[node name="Coin" type="Area2D" unique_id=722444702]
+collision_layer = 0
+collision_mask = 2
+script = ExtResource("1_owubc")
+
+[node name="CoinSpinningAnimation" type="AnimatedSprite2D" parent="." unique_id=2130197507]
+sprite_frames = SubResource("SpriteFrames_g4v7s")
+
+[node name="ColorRect" type="ColorRect" parent="CoinSpinningAnimation" unique_id=1386470974]
+offset_left = -10.0
+offset_top = -10.0
+offset_right = 10.0
+offset_bottom = 10.0
+color = Color(1, 1, 0, 1)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1752163326]
+shape = SubResource("CircleShape2D_g4v7s")
+
+[node name="CollectSound" type="AudioStreamPlayer2D" parent="." unique_id=898113119]
+stream = ExtResource("2_kyq3r")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

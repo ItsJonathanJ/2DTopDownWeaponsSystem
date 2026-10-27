@@ -1,0 +1,50 @@
+[gd_scene format=3 uid="uid://c0xvdkhnoyyni"]
+
+[ext_resource type="AudioStream" uid="uid://bcemywdiyo7ko" path="res://assets/AUDIO/Game_Music_01.mp3" id="1_4qegb"]
+[ext_resource type="PackedScene" uid="uid://cg2yq7unj11sb" path="res://scenes/Player.tscn" id="1_q4iis"]
+[ext_resource type="PackedScene" uid="uid://csar4mi20ndxg" path="res://scenes/HUD.tscn" id="2_m3clv"]
+[ext_resource type="PackedScene" uid="uid://cevewper3sjva" path="res://scenes/Coin.tscn" id="4_4eo0i"]
+[ext_resource type="PackedScene" uid="uid://dpvfbeltkooa8" path="res://scenes/Enemy.tscn" id="5_86ljf"]
+[ext_resource type="Texture2D" uid="uid://dbk5iowkvcfpg" path="res://assets/GRAPHICS/PROGRAMMER NAME TEXT/Scene Overview.png" id="6_dke22"]
+
+[sub_resource type="TileSet" id="TileSet_tt7e2"]
+
+[node name="Level" type="Node2D" unique_id=1927201722]
+
+[node name="BGM" type="AudioStreamPlayer2D" parent="." unique_id=1593705220]
+position = Vector2(1227, 21)
+stream = ExtResource("1_4qegb")
+autoplay = true
+
+[node name="TileMap" type="TileMap" parent="." unique_id=1604031056]
+tile_set = SubResource("TileSet_tt7e2")
+format = 2
+
+[node name="Player" parent="." unique_id=511585182 instance=ExtResource("1_q4iis")]
+position = Vector2(590, 96)
+scale = Vector2(1.677163, 1.8022426)
+
+[node name="HUD" parent="." unique_id=1628653138 instance=ExtResource("2_m3clv")]
+
+[node name="Enemy" parent="." unique_id=1794879352 instance=ExtResource("5_86ljf")]
+position = Vector2(882, 548)
+scale = Vector2(1.677163, 1.8022426)
+
+[node name="Coin" parent="." unique_id=722444702 instance=ExtResource("4_4eo0i")]
+position = Vector2(593, 264)
+scale = Vector2(2.2144685, 2.2098231)
+
+[node name="Coin2" parent="." unique_id=1262266975 instance=ExtResource("4_4eo0i")]
+position = Vector2(795, 499)
+scale = Vector2(2.2144685, 2.2098231)
+
+[node name="Coin3" parent="." unique_id=484928845 instance=ExtResource("4_4eo0i")]
+position = Vector2(156, 491)
+scale = Vector2(2.2144685, 2.2098231)
+
+[node name="BackgroundTexture" type="TextureRect" parent="." unique_id=1428482861]
+z_index = -1
+offset_right = 1542.7875
+offset_bottom = 1200.0
+scale = Vector2(0.7486449, 0.8440625)
+texture = ExtResource("6_dke22")

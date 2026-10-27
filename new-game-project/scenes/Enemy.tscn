@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://dpvfbeltkooa8"]
+
+[ext_resource type="Script" uid="uid://dxacrlnsr1vsp" path="res://scripts/Enemy.gd" id="1_3gvst"]
+[ext_resource type="Texture2D" uid="uid://1o00pobd2o48" path="res://assets/art/Fantasy Adventurer_male_Assassin_SpriteSheet.png" id="2_55jtl"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mpr68"]
+atlas = ExtResource("2_55jtl")
+region = Rect2(32, 12, 92, 179)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ft8do"]
+atlas = ExtResource("2_55jtl")
+region = Rect2(126, 12, 92, 179)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5wwv6"]
+atlas = ExtResource("2_55jtl")
+region = Rect2(220, 12, 92, 179)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1vja8"]
+atlas = ExtResource("2_55jtl")
+region = Rect2(314, 12, 92, 179)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_g4v7s"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mpr68")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ft8do")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5wwv6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1vja8")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g4v7s"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_yf5fn"]
+size = Vector2(34, 40)
+
+[node name="Enemy" type="CharacterBody2D" unique_id=1794879352]
+collision_layer = 2
+script = ExtResource("1_3gvst")
+
+[node name="WalkAnimation" type="AnimatedSprite2D" parent="." unique_id=158702502]
+scale = Vector2(-0.40511575, 0.24904165)
+sprite_frames = SubResource("SpriteFrames_g4v7s")
+frame = 2
+frame_progress = 0.74113035
+
+[node name="ColorRect" type="ColorRect" parent="WalkAnimation" unique_id=527193053]
+offset_left = -7.3490124
+offset_top = -18.637505
+offset_right = 32.650986
+offset_bottom = 21.362495
+scale = Vector2(0.3695173, 0.98317987)
+color = Color(1, 0, 0, 1)
+
+[node name="Rectangle" type="CollisionShape2D" parent="." unique_id=707391523]
+shape = SubResource("RectangleShape2D_g4v7s")
+
+[node name="LedgeCheck" type="RayCast2D" parent="." unique_id=1818787130]
+target_position = Vector2(10, 49)
+
+[node name="Hitbox" type="Area2D" parent="." unique_id=2006622091]
+
+[node name="Large_Rectangle" type="CollisionShape2D" parent="Hitbox" unique_id=1510996580]
+position = Vector2(-1, 0)
+shape = SubResource("RectangleShape2D_yf5fn")
+
+[connection signal="body_entered" from="Hitbox" to="." method="_on_hitbox_body_entered"]

@@ -1,0 +1,77 @@
+[gd_scene format=3 uid="uid://cplovbsqmf8q3"]
+
+[ext_resource type="Script" uid="uid://bk3dk5kxlxj36" path="res://scripts/blob_ai.gd" id="1_eo8br"]
+[ext_resource type="Texture2D" uid="uid://1o00pobd2o48" path="res://assets/art/Fantasy Adventurer_male_Assassin_SpriteSheet.png" id="2_ngma2"]
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_mpr68"]
+atlas = ExtResource("2_ngma2")
+region = Rect2(32, 12, 92, 179)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ft8do"]
+atlas = ExtResource("2_ngma2")
+region = Rect2(126, 12, 92, 179)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_5wwv6"]
+atlas = ExtResource("2_ngma2")
+region = Rect2(220, 12, 92, 179)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_1vja8"]
+atlas = ExtResource("2_ngma2")
+region = Rect2(314, 12, 92, 179)
+
+[sub_resource type="SpriteFrames" id="SpriteFrames_17po2"]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_mpr68")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_ft8do")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_5wwv6")
+}, {
+"duration": 1.0,
+"texture": SubResource("AtlasTexture_1vja8")
+}],
+"loop": 1,
+"name": &"default",
+"speed": 5.0
+}]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_5x4b7"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_v4t87"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_clm6w"]
+
+[node name="Blob" type="CharacterBody2D" unique_id=1928422409 groups=["enemies"]]
+collision_layer = 4
+script = ExtResource("1_eo8br")
+
+[node name="WalkAnimation" type="AnimatedSprite2D" parent="." unique_id=1021820891]
+position = Vector2(61, 33.999996)
+rotation = 3.1415927
+scale = Vector2(0.40511575, -0.24904165)
+sprite_frames = SubResource("SpriteFrames_17po2")
+frame = 3
+frame_progress = 0.15323155
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1229623462]
+position = Vector2(60, 34)
+shape = SubResource("RectangleShape2D_5x4b7")
+
+[node name="DetectionArea" type="Area2D" parent="." unique_id=336873362]
+collision_layer = 0
+collision_mask = 2
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="DetectionArea" unique_id=508972315]
+position = Vector2(64, 31)
+scale = Vector2(8.140401, 7.580299)
+shape = SubResource("CircleShape2D_v4t87")
+
+[node name="EnemyHitbox" type="Area2D" parent="." unique_id=1449978505 groups=["enemies"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EnemyHitbox" unique_id=1938177208]
+position = Vector2(61, 35)
+shape = SubResource("RectangleShape2D_clm6w")

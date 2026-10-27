@@ -1,0 +1,86 @@
+[gd_scene format=3 uid="uid://baobjg5c7ngio"]
+
+[ext_resource type="Script" uid="uid://ceficjcx34oqw" path="res://scripts/MainMenu.gd" id="1_8a8k8"]
+[ext_resource type="Texture2D" uid="uid://cd04b8p4chlor" path="res://assets/GRAPHICS/BACKGROUND IMAGES/BG_03.png" id="2_7la6k"]
+[ext_resource type="Texture2D" uid="uid://cglnrnanq7wcv" path="res://assets/GRAPHICS/GAME TITLE LOGO/Game Title Logo_transp.png" id="3_2nypq"]
+[ext_resource type="Texture2D" uid="uid://ikghpk6axp0a" path="res://assets/GRAPHICS/BUTTONS/Button Rect_green_Start_button.png" id="4_bky6r"]
+[ext_resource type="Texture2D" uid="uid://b88yv0k4yaf28" path="res://assets/GRAPHICS/BUTTONS/Start Game_button_text.png" id="5_l4mxc"]
+[ext_resource type="Texture2D" uid="uid://do5vwkipqcefm" path="res://assets/GRAPHICS/BUTTONS/Button Rect_red_Quit_button.png" id="6_5faoh"]
+[ext_resource type="Texture2D" uid="uid://b1ne64x48a35" path="res://assets/GRAPHICS/BUTTONS/Quit Game_button_text.png" id="7_ptake"]
+[ext_resource type="Texture2D" uid="uid://duwb5jlqtkg7w" path="res://assets/GRAPHICS/BANNERS & SCROLLS/Scroll_03.png" id="8_hubol"]
+[ext_resource type="Texture2D" uid="uid://pk2xp4sok1l5" path="res://assets/GRAPHICS/PROGRAMMER NAME TEXT/Aidan_Perkins_text.png" id="9_8vx4p"]
+[ext_resource type="Texture2D" uid="uid://gg7uxx1pyvbi" path="res://assets/GRAPHICS/PROGRAMMER NAME TEXT/Course_Notation_Text.png" id="10_7la6k"]
+
+[node name="MainMenu" type="Control" unique_id=1158718084]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_8a8k8")
+
+[node name="BackgroundTexture" type="TextureRect" parent="." unique_id=1040983040]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+scale = Vector2(0.7486449, 0.8440625)
+texture = ExtResource("2_7la6k")
+
+[node name="CenterLayout" type="VBoxContainer" parent="." unique_id=1248713737]
+layout_mode = 0
+offset_left = 72.0
+offset_top = 342.0
+offset_right = 1057.0
+offset_bottom = 799.0
+scale = Vector2(0.41312897, 0.6452187)
+
+[node name="AdventureQuest" type="Label" parent="CenterLayout" unique_id=1072972099]
+layout_mode = 2
+
+[node name="GameTitleLogoTransp" type="Sprite2D" parent="CenterLayout/AdventureQuest" unique_id=160543601]
+position = Vector2(539.783, -240.22864)
+scale = Vector2(1.1521951, 1.1841507)
+texture = ExtResource("3_2nypq")
+
+[node name="StartGame" type="Button" parent="CenterLayout" unique_id=1138818736]
+layout_mode = 2
+icon = ExtResource("4_bky6r")
+
+[node name="StartGameText" type="TextureRect" parent="CenterLayout/StartGame" unique_id=883179775]
+layout_mode = 0
+offset_left = 91.98915
+offset_top = 25.055773
+offset_right = 558.98914
+offset_bottom = 99.05577
+scale = Vector2(1.6629022, 2.019807)
+texture = ExtResource("5_l4mxc")
+
+[node name="QuitGame" type="Button" parent="CenterLayout" unique_id=1345738441]
+layout_mode = 2
+icon = ExtResource("6_5faoh")
+
+[node name="QuitGameText" type="TextureRect" parent="CenterLayout/QuitGame" unique_id=1270078832]
+layout_mode = 0
+offset_left = 112.22675
+offset_top = 43.838097
+offset_right = 499.22675
+offset_bottom = 119.8381
+scale = Vector2(1.9338517, 1.7919414)
+texture = ExtResource("7_ptake")
+
+[node name="Scroll03" type="Sprite2D" parent="." unique_id=632618827]
+position = Vector2(892, 341)
+scale = Vector2(0.35222334, 0.41530508)
+texture = ExtResource("8_hubol")
+
+[node name="AidanPerkinsText" type="Sprite2D" parent="." unique_id=1410131283]
+position = Vector2(888, 350)
+scale = Vector2(0.57092917, 0.7850903)
+texture = ExtResource("9_8vx4p")
+
+[node name="CourseNotationText" type="Sprite2D" parent="." unique_id=899154014]
+position = Vector2(896, 442)
+scale = Vector2(0.3113695, 0.65584415)
+texture = ExtResource("10_7la6k")
+
+[connection signal="pressed" from="CenterLayout/StartGame" to="." method="_on_start_game_pressed"]
+[connection signal="pressed" from="CenterLayout/QuitGame" to="." method="_on_quit_game_pressed"]
