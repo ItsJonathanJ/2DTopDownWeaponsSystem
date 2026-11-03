@@ -1,6 +1,5 @@
 extends Node
 
-
 signal coin_collected(total_coins)
 signal game_over
 signal game_won

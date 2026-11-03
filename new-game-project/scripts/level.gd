@@ -5,17 +5,17 @@ extends Node2D
 @onready var camera = $Player/Camera2D
 
 func _ready():
-	setup_hud_connections()
+	#setup_hud_connections()
 #	setup_camera_limits()
 
 ## Connects player signals to update the HUD and manage game states
-func setup_hud_connections():
-	if player and hud:
-		# Connect player health changes to HUD text update
-		player.health_changed.connect(hud.update_health_display)
-		
-		# Set initial HUD values at game start
-		hud.update_health_display(player.health)
+#func setup_hud_connections():
+	#if player and hud:
+		## Connect player health changes to HUD text update
+		#player.health_changed.connect(hud.update_health_display)
+		#
+		## Set initial HUD values at game start
+		#hud.update_health_display(player.health)
 
 ## Dynamically calculates camera limits based on the CameraBounds collision box - We'll get this to work later
 #func setup_camera_limits():
