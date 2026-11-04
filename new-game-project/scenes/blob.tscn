@@ -2,6 +2,7 @@
 
 [ext_resource type="Texture2D" uid="uid://de1i8nifmejrs" path="res://assets/Enemy/free-slime-mobs-pixel-art-top-down-sprite-pack/PNG/Slime1/Death/Slime1_Death_full.png" id="1_4jdjx"]
 [ext_resource type="Script" uid="uid://bk3dk5kxlxj36" path="res://scripts/characters/enemy/blob_ai.gd" id="1_rut5n"]
+[ext_resource type="PackedScene" uid="uid://jg8m3v85glak" path="res://scenes/ui/MainHUD.tscn" id="2_fdfpp"]
 [ext_resource type="Script" uid="uid://bnh1gylsnfhag" path="res://scripts/characters/enemy/hitbox.gd" id="2_fn8y4"]
 [ext_resource type="Texture2D" uid="uid://dxvyvuc8yu8ai" path="res://assets/Enemy/free-slime-mobs-pixel-art-top-down-sprite-pack/PNG/Slime1/Hurt/Slime1_Hurt_full.png" id="2_rut5n"]
 [ext_resource type="Texture2D" uid="uid://cauqi0p007udj" path="res://assets/Enemy/free-slime-mobs-pixel-art-top-down-sprite-pack/PNG/Slime1/Idle/Slime1_Idle_full.png" id="3_fn8y4"]
@@ -922,6 +923,10 @@ script = ExtResource("1_rut5n")
 attack_range = 90.0
 blob_size = 1.5
 
+[node name="Healthbar" parent="." unique_id=149261361 node_paths=PackedStringArray("entity") instance=ExtResource("2_fdfpp")]
+scale = Vector2(0.44, 0.44)
+entity = NodePath("..")
+
 [node name="BlobHitbox" type="Area2D" parent="." unique_id=971523547]
 position = Vector2(-2.2888184e-05, -2.2888184e-05)
 scale = Vector2(12.89389, 11.989213)
@@ -945,7 +950,7 @@ scale = Vector2(12.41389, 11.989213)
 shape = SubResource("CircleShape2D_eelm6")
 
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=406551678]
-position = Vector2(9.62965e-35, 4.7683716e-07)
+position = Vector2(0, -0.6666667)
 scale = Vector2(3.0032759, 3.0233474)
 sprite_frames = SubResource("SpriteFrames_djvso")
 animation = &"idle_s"

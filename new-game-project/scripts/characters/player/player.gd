@@ -31,7 +31,7 @@ func _ready() -> void:
 		health_changed.emit(current_health, max_health)
 
 	# Connect the hurtbox damage signal
-	hurtbox.damage_received.connect(_on_damage_received)
+	hurtbox.damage_recieved.connect(_on_damage_received)
 
 
 func _physics_process(delta: float) -> void:

@@ -1665,8 +1665,6 @@ animations = [{
 "speed": 10.0
 }]
 
-[sub_resource type="GDScript" id="GDScript_8s3vy"]
-
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_4s4lg"]
 radius = 8.0
 
@@ -1675,7 +1673,7 @@ radius = 8.0
 height = 26.666668
 
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=727319855 groups=["player"]]
-scale = Vector2(3, 3)
+scale = Vector2(1.2, 1.2)
 collision_layer = 2
 collision_mask = 5
 motion_mode = 1
@@ -1684,34 +1682,38 @@ script = ExtResource("1_3li8b")
 [node name="AnimatedSprite2D" type="AnimatedSprite2D" parent="." unique_id=9599817]
 z_index = -1
 position = Vector2(0, -2.6666667)
+scale = Vector2(1.2, 1.2)
 sprite_frames = SubResource("SpriteFrames_4s4lg")
 animation = &"attack_e"
 
-[node name="Player" type="Node2D" parent="." unique_id=104234397]
-position = Vector2(24, -8)
-script = SubResource("GDScript_8s3vy")
-
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=2097441123]
 position = Vector2(-2.6666667, -2.6666667)
-scale = Vector2(0.82832044, 0.77077067)
+scale = Vector2(1.2, 1.2)
 shape = SubResource("CapsuleShape2D_4s4lg")
 
 [node name="PlayerHurtbox" type="Area2D" parent="." unique_id=1896231262]
+scale = Vector2(1.2, 1.2)
 collision_layer = 2
 collision_mask = 0
 script = ExtResource("3_3li8b")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="PlayerHurtbox" unique_id=1901935136]
 position = Vector2(-2.6666667, -2.6666667)
-scale = Vector2(0.8533337, 0.8735345)
+scale = Vector2(1.2, 1.2)
 shape = SubResource("CapsuleShape2D_djvso")
 
 [node name="WeaponSprite" type="Sprite2D" parent="." unique_id=2042862660 groups=["player"]]
+scale = Vector2(1.2, 1.2)
 script = ExtResource("39_j2b1d")
 
 [node name="WeaponHitbox" type="Area2D" parent="WeaponSprite" unique_id=2145531130]
+scale = Vector2(1.2, 1.2)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WeaponSprite/WeaponHitbox" unique_id=589020990]
+scale = Vector2(1.2, 1.2)
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=328410020]
+scale = Vector2(1.2, 1.2)
+zoom = Vector2(2.5, 2.5)
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
-[connection signal="damage_received" from="PlayerHurtbox" to="." method="_on_player_hurtbox_damage_received"]

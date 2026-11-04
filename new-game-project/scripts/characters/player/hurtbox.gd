@@ -1,7 +1,7 @@
 
 class_name Hurtbox
 extends Area2D
-signal damage_received(hitbox:Hitbox)
+signal damage_recieved(hitbox:Hitbox)
 # State to track if the entity is currently safe from damage
 var is_invincible: bool = false
 # Internal timer created via code to handle the cooldown window
@@ -27,7 +27,7 @@ func _on_area_entered(incoming_area: Area2D) -> void:
 		return
 	if incoming_area is Hitbox:
 		var hitbox = incoming_area as Hitbox
-		damage_received.emit(hitbox)
+		damage_recieved.emit(hitbox)
 		
 func start_invincibility(duration: float) -> void:
 	if duration <= 0.0:

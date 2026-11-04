@@ -2,6 +2,8 @@ extends CharacterBody2D
 # 1. State Machine Definitions
 enum State { IDLE, PATROL, CHASE, ATTACK }
 var current_state: State = State.IDLE
+signal health_changed(current_health, max_health)
+
 @export_group("Movement")
 @export var walk_speed: float = 60.0
 @export var chase_speed: float = 110.0
@@ -185,6 +187,9 @@ func _on_player_exited(body: Node2D) -> void:
 			
 func _on_damage_recieved(amount: int) -> void:
 	current_health -= amount
+	# Update health bar
+	health_changed.emit(current_health, max_health)
+	
 	if(current_health <= 0):
 		die()
 func die() -> void:
