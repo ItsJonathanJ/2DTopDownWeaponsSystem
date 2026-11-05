@@ -1,0 +1,18 @@
+[gd_scene format=3 uid="uid://jg8m3v85glak"]
+
+[ext_resource type="Texture2D" uid="uid://b0dhdx7tr8jnv" path="res://assets/art/Button Rect_red_Quit_button.png" id="1_fn7sl"]
+[ext_resource type="Script" uid="uid://c5wqbup48l0dx" path="res://scripts/characters/ui/health_bar.gd" id="1_hyofe"]
+
+[node name="PlayerHealthBar" type="TextureProgressBar" unique_id=1056255808]
+offset_right = 977.0
+offset_bottom = 205.0
+scale = Vector2(0.4, 0.4)
+max_value = 5.0
+value = 5.0
+texture_progress = ExtResource("1_fn7sl")
+script = ExtResource("1_hyofe")
+
+[node name="Control" type="Control" parent="." unique_id=892369696]
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
