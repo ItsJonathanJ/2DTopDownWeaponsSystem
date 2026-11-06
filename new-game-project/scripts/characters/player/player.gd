@@ -102,14 +102,18 @@ func _unhandled_input(event):
 		return
 
 	if event.is_action_pressed("attack"):
+		$WeaponSprite.attacking.emit(true)
 		play_action_animation("attack")
-
+		await $AnimatedSprite2D.animation_finished
+		$WeaponSprite.attacking.emit(false)
+	
 	elif event.is_action_pressed("test_hit"):
 		play_action_animation("hit")
 		take_damage(25)
 
 	elif event.is_action_pressed("test_die"):
 		die()
+	
 
 
 func _on_animated_sprite_2d_animation_finished() -> void:

@@ -39,6 +39,7 @@
 [ext_resource type="Texture2D" uid="uid://vahwiok3rgsp" path="res://assets/player/free-8-direction-hero-adventurer/sheets/adventurer_default_walk_sw.png" id="32_djt8p"]
 [ext_resource type="Texture2D" uid="uid://dvhllyn2lyii4" path="res://assets/player/free-8-direction-hero-adventurer/sheets/adventurer_default_walk_w.png" id="33_n75lc"]
 [ext_resource type="Script" uid="uid://ptghcmbgl2m5" path="res://scripts/weapons.gd" id="39_j2b1d"]
+[ext_resource type="Script" uid="uid://bnh1gylsnfhag" path="res://scripts/characters/enemy/hitbox.gd" id="40_cs1tg"]
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_d0at1"]
 atlas = ExtResource("2_e3mc6")
@@ -1672,6 +1673,8 @@ radius = 8.0
 radius = 8.0
 height = 26.666668
 
+[sub_resource type="SegmentShape2D" id="SegmentShape2D_2dvfe"]
+
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=727319855 groups=["player"]]
 scale = Vector2(1.2, 1.2)
 collision_layer = 2
@@ -1692,6 +1695,7 @@ scale = Vector2(1.2, 1.2)
 shape = SubResource("CapsuleShape2D_4s4lg")
 
 [node name="PlayerHurtbox" type="Area2D" parent="." unique_id=1896231262]
+position = Vector2(0, 0.83333343)
 scale = Vector2(1.2, 1.2)
 collision_layer = 2
 collision_mask = 0
@@ -1707,13 +1711,21 @@ scale = Vector2(1.2, 1.2)
 script = ExtResource("39_j2b1d")
 
 [node name="WeaponHitbox" type="Area2D" parent="WeaponSprite" unique_id=2145531130]
-scale = Vector2(1.2, 1.2)
+position = Vector2(-9.027778, -1.3888891)
+rotation = -1.5819741
+scale = Vector2(9.257305, 5.754021)
+collision_mask = 4
+script = ExtResource("40_cs1tg")
+damage = 100
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WeaponSprite/WeaponHitbox" unique_id=589020990]
 scale = Vector2(1.2, 1.2)
+shape = SubResource("SegmentShape2D_2dvfe")
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=328410020]
 scale = Vector2(1.2, 1.2)
 zoom = Vector2(2.5, 2.5)
 
 [connection signal="animation_finished" from="AnimatedSprite2D" to="." method="_on_animated_sprite_2d_animation_finished"]
+[connection signal="area_entered" from="WeaponSprite/WeaponHitbox" to="WeaponSprite" method="_on_weapon_hitbox_area_entered"]
+[connection signal="body_entered" from="WeaponSprite/WeaponHitbox" to="WeaponSprite/WeaponHitbox" method="_on_body_entered"]

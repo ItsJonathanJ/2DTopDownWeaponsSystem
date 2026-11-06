@@ -924,10 +924,15 @@ attack_range = 90.0
 blob_size = 1.5
 
 [node name="Healthbar" parent="." unique_id=149261361 node_paths=PackedStringArray("entity") instance=ExtResource("2_fdfpp")]
-scale = Vector2(0.44, 0.44)
+offset_left = -48.0
+offset_top = -50.0
+offset_right = 929.0
+offset_bottom = 155.0
+scale = Vector2(0.1, 0.1)
 entity = NodePath("..")
 
 [node name="BlobHitbox" type="Area2D" parent="." unique_id=971523547]
+visible = false
 position = Vector2(-2.2888184e-05, -2.2888184e-05)
 scale = Vector2(12.89389, 11.989213)
 collision_layer = 0

@@ -4,8 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://jg8m3v85glak" path="res://scenes/ui/MainHUD.tscn" id="1_faw0r"]
 [ext_resource type="PackedScene" uid="uid://csar4mi20ndxg" path="res://scenes/HUD.tscn" id="2_m3clv"]
 [ext_resource type="PackedScene" uid="uid://cre8rn4k3bypf" path="res://scenes/platform.tscn" id="5_qifjx"]
-[ext_resource type="PackedScene" uid="uid://c5kad316tjsih" path="res://scenes/Player.tscn" id="6_4qegb"]
 [ext_resource type="Texture2D" uid="uid://dbk5iowkvcfpg" path="res://assets/GRAPHICS/BACKGROUND IMAGES/Scene Overview.png" id="6_dke22"]
+[ext_resource type="PackedScene" uid="uid://c5kad316tjsih" path="res://scenes/player.tscn" id="7_4qegb"]
 [ext_resource type="PackedScene" uid="uid://x06rgd521phm" path="res://scenes/blob.tscn" id="9_2eouu"]
 
 [node name="Level" type="Node2D" unique_id=1927201722]
@@ -24,7 +24,7 @@ offset_bottom = 1200.0
 scale = Vector2(0.7486449, 0.8440625)
 texture = ExtResource("6_dke22")
 
-[node name="BlobMonster" parent="." unique_id=901378514 instance=ExtResource("9_2eouu")]
+[node name="BlobMonster" parent="." unique_id=901378514 groups=["enemy"] instance=ExtResource("9_2eouu")]
 position = Vector2(697, 454)
 
 [node name="Platforms" type="Node2D" parent="." unique_id=1999011740]
@@ -353,11 +353,10 @@ position = Vector2(695.99994, 657)
 rotation = -1.5827076
 scale = Vector2(0.16277257, 0.13630784)
 
-[node name="Player" parent="." unique_id=727319855 instance=ExtResource("6_4qegb")]
-position = Vector2(659, 72)
-scale = Vector2(1, 1)
-
 [node name="Healthbar" type="CanvasLayer" parent="." unique_id=2044623910]
 
 [node name="TextureProgressBar" parent="Healthbar" unique_id=871453207 node_paths=PackedStringArray("entity") instance=ExtResource("1_faw0r")]
-entity = NodePath("../../Player")
+entity = NodePath("../../player")
+
+[node name="player" parent="." unique_id=727319855 instance=ExtResource("7_4qegb")]
+position = Vector2(648, 79)

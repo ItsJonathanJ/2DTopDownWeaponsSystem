@@ -1,5 +1,6 @@
-extends Node
+extends Sprite2D
 class_name Weapons
+signal attacking(status: bool)
 
 @export var damage:int = 5
 @export var animation:AnimatedSprite2D
@@ -7,9 +8,14 @@ class_name Weapons
 
 
 func _ready() -> void: 
-	#$WeaponHitbox.connect("area_entered", _on_area_entered)
-	$WeaponHitbox.connect("body_entered", _on_body_entered)
+	attacking.connect(_attacking_update)
+	weapon_hitbox.get_node("CollisionShape2D").disabled = true;
 
-func _on_body_entered(body:Node2D):
-	if(body.is_in_group("enemy")):
-		body.damage_recieved.emit(damage)
+func _attacking_update(status:bool):
+	if(status):
+		weapon_hitbox.get_node("CollisionShape2D").disabled = false;
+	else:
+		weapon_hitbox.get_node("CollisionShape2D").disabled = true;
+
+
+	

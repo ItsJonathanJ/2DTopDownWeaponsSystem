@@ -185,13 +185,26 @@ func _on_player_exited(body: Node2D) -> void:
 		if current_state != State.ATTACK:
 			enter_state(State.IDLE)
 			
-func _on_damage_recieved(amount: int) -> void:
-	current_health -= amount
+func _on_damage_recieved(hitboxx: Hitbox) -> void:
+	# Take damage from the enemy
+	take_damage(hitboxx.damage)
+
+func take_damage(amount: int) -> void:
+	current_health = clampi(
+		current_health - amount,
+		0,
+		max_health
+	)
+
 	# Update health bar
 	health_changed.emit(current_health, max_health)
-	
-	if(current_health <= 0):
+
+	# Activate invincibility frames
+
+	# Death Logic
+	if current_health <= 0:
 		die()
+		
 func die() -> void:
 	# Safely vanish the monster scene tree instance cleanly between engine steps
 	queue_free()
