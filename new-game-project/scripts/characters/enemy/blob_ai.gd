@@ -4,6 +4,8 @@ enum State { IDLE, PATROL, CHASE, ATTACK }
 var current_state: State = State.IDLE
 signal health_changed(current_health, max_health)
 
+var last_direction = "s"
+
 @export_group("Movement")
 @export var walk_speed: float = 60.0
 @export var chase_speed: float = 110.0
@@ -93,6 +95,8 @@ func process_patrol_state(delta: float) -> void:
 		
 	var next_path_pos = nav_agent.get_next_path_position()
 	var dir = global_position.direction_to(next_path_pos).normalized()
+	update_direction(dir)
+
 	velocity = dir * walk_speed
 	
 	# Flip sprite asset based on traveling direction
@@ -127,6 +131,7 @@ func process_chase_state(delta: float) -> void:
 	nav_agent.target_position = target_player.global_position
 	var next_path_pos = nav_agent.get_next_path_position()
 	var dir = global_position.direction_to(next_path_pos).normalized()
+	update_direction(dir)
 	velocity = dir * chase_speed
 	sprite.flip_h = velocity.x < 0
 	
@@ -142,6 +147,7 @@ func execute_blob_attack() -> void:
 	
 	# Direction vector towards the player
 	var attack_dir = global_position.direction_to(target_player.global_position).normalized()
+	update_direction(attack_dir)
 	# Juice up the attack visual using a clean, sequence code-tween
 	var attack_tween = create_tween()
 	
@@ -195,11 +201,15 @@ func take_damage(amount: int) -> void:
 		0,
 		max_health
 	)
+	print(current_health)
 
 	# Update health bar
 	health_changed.emit(current_health, max_health)
 
-	# Activate invincibility frames
+	#Hit animation
+	sprite.play("hurt_" + last_direction)
+	await sprite.animation_finished
+	sprite.play("idle_" + last_direction)
 
 	# Death Logic
 	if current_health <= 0:
@@ -207,4 +217,17 @@ func take_damage(amount: int) -> void:
 		
 func die() -> void:
 	# Safely vanish the monster scene tree instance cleanly between engine steps
+	sprite.play("death_" + last_direction)
+	await sprite.animation_finished
 	queue_free()
+	
+func update_direction(dir):
+	velocity = Vector2.ZERO
+	if dir.y < 0:
+		last_direction = "n"
+	elif dir.y > 0:
+		last_direction = "s"
+	elif dir.x < 0:
+		last_direction = "w"
+	elif dir.x > 0:
+		last_direction = "e"

@@ -1673,7 +1673,8 @@ radius = 8.0
 radius = 8.0
 height = 26.666668
 
-[sub_resource type="SegmentShape2D" id="SegmentShape2D_2dvfe"]
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_cs1tg"]
+size = Vector2(2.7678776, 14.410356)
 
 [node name="CharacterBody2D" type="CharacterBody2D" unique_id=727319855 groups=["player"]]
 scale = Vector2(1.2, 1.2)
@@ -1716,11 +1717,16 @@ rotation = -1.5819741
 scale = Vector2(9.257305, 5.754021)
 collision_mask = 4
 script = ExtResource("40_cs1tg")
-damage = 100
+damage = 25
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="WeaponSprite/WeaponHitbox" unique_id=589020990]
+position = Vector2(0.012124002, 9.0524235)
+rotation = -0.00020877458
 scale = Vector2(1.2, 1.2)
-shape = SubResource("SegmentShape2D_2dvfe")
+shape = SubResource("RectangleShape2D_cs1tg")
+
+[node name="Marker2D" type="Marker2D" parent="WeaponSprite" unique_id=1360898800]
+position = Vector2(-2.0833335, 4.861111)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=328410020]
 scale = Vector2(1.2, 1.2)

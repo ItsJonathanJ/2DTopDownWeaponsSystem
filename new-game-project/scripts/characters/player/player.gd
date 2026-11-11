@@ -11,6 +11,7 @@ signal health_changed(current_health, max_health)
 
 @onready var animated_sprite = $AnimatedSprite2D
 @onready var hurtbox: Hurtbox = $PlayerHurtbox
+@onready var weapon: Sprite2D = $WeaponSprite
 
 var last_direction = "s"
 var is_action_playing = false
@@ -80,7 +81,7 @@ func update_direction(input_direction):
 		last_direction = "w"
 	elif input_direction.x > 0:
 		last_direction = "e"
-
+	weapon.change_weapon_direction.emit(last_direction)
 
 func update_movement_animation(input_direction):
 	if input_direction == Vector2.ZERO:

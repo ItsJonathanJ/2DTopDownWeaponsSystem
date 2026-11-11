@@ -6,6 +6,8 @@ signal damage_recieved(hitbox:Hitbox)
 var is_invincible: bool = false
 # Internal timer created via code to handle the cooldown window
 var iframe_timer: Timer
+@export var iframe_length: int = 1
+
 func _init() -> void:
 	monitoring = false
 	monitorable = true
@@ -16,6 +18,7 @@ func _ready() -> void:
 func _setup_iframe_timer() -> void:
 # Build the timer dynamically so you don't have to manually add it in the editor
 	iframe_timer = Timer.new()
+	iframe_timer.wait_time = iframe_length
 	iframe_timer.one_shot = true
 	add_child(iframe_timer)
 # When the timer runs out, turn invincibility off
