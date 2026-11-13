@@ -25,7 +25,9 @@ scale = Vector2(0.7486449, 0.8440625)
 texture = ExtResource("6_dke22")
 
 [node name="BlobMonster" parent="." unique_id=901378514 groups=["enemy"] instance=ExtResource("9_2eouu")]
-position = Vector2(697, 454)
+position = Vector2(664, 522)
+scale = Vector2(1, 1)
+attack_range = 55.0
 blob_size = 1.0
 
 [node name="Platforms" type="Node2D" parent="." unique_id=1999011740]
@@ -167,21 +169,6 @@ scale = Vector2(0.23618858, 0.5529778)
 position = Vector2(644, 702.00006)
 rotation = 3.1381905
 scale = Vector2(0.1893828, 0.47446838)
-
-[node name="Platform34" parent="Platforms" unique_id=905950083 instance=ExtResource("5_qifjx")]
-position = Vector2(406, 545.00006)
-rotation = -1.5827076
-scale = Vector2(0.105973594, 0.257175)
-
-[node name="Platform35" parent="Platforms" unique_id=1460724036 instance=ExtResource("5_qifjx")]
-position = Vector2(316, 543.00006)
-rotation = -1.5827076
-scale = Vector2(0.105973594, 0.257175)
-
-[node name="Platform36" parent="Platforms" unique_id=561024280 instance=ExtResource("5_qifjx")]
-position = Vector2(466, 545.00006)
-rotation = -1.5827076
-scale = Vector2(0.105973594, 0.257175)
 
 [node name="Platform37" parent="Platforms" unique_id=57915324 instance=ExtResource("5_qifjx")]
 position = Vector2(790, 698)

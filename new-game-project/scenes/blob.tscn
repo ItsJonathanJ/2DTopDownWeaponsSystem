@@ -920,7 +920,7 @@ scale = Vector2(1.5, 1.5)
 collision_layer = 4
 collision_mask = 3
 script = ExtResource("1_rut5n")
-attack_range = 90.0
+attack_timer_length = 1.0
 blob_size = 1.5
 
 [node name="Healthbar" parent="." unique_id=149261361 node_paths=PackedStringArray("entity") instance=ExtResource("2_fdfpp")]
@@ -932,16 +932,14 @@ scale = Vector2(0.1, 0.1)
 entity = NodePath("..")
 
 [node name="BlobHitbox" type="Area2D" parent="." unique_id=971523547]
-visible = false
 position = Vector2(-2.2888184e-05, -2.2888184e-05)
 scale = Vector2(12.89389, 11.989213)
-collision_layer = 0
-collision_mask = 2
+collision_layer = 2
 script = ExtResource("2_fn8y4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BlobHitbox" unique_id=968039771]
 position = Vector2(1.8437561e-06, 1.9090648e-06)
-scale = Vector2(0.1929327, 0.13011697)
+scale = Vector2(0.17431912, 0.09900267)
 shape = SubResource("CapsuleShape2D_45h0u")
 disabled = true
 
@@ -963,6 +961,7 @@ animation = &"idle_s"
 [node name="PatrolTimer" type="Timer" parent="." unique_id=1629585554]
 wait_time = 3.432
 one_shot = true
+autostart = true
 
 [node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=526095995]
 
@@ -970,8 +969,7 @@ one_shot = true
 shape = SubResource("CircleShape2D_djvso")
 
 [node name="BlobHurtbox" type="Area2D" parent="." unique_id=1070956838 groups=["enemy"]]
-collision_layer = 4
-collision_mask = 0
+collision_layer = 2
 script = ExtResource("7_0pbl4")
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="BlobHurtbox" unique_id=1948143395]

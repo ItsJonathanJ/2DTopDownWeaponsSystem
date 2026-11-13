@@ -1,7 +1,7 @@
 extends CharacterBody2D
 # 1. State Machine Definitions
 enum State { IDLE, PATROL, CHASE, ATTACK }
-var current_state: State = State.IDLE
+var current_state: State = State.PATROL
 signal health_changed(current_health, max_health)
 
 var last_direction = "s"
@@ -12,7 +12,8 @@ var last_direction = "s"
 
 @export_group("Idle and Patrol Timing")
 @export var patrol_radius: float = 150.0
-@export var attack_range:float = 70.0;
+@export var attack_range:float = 70.0
+@export var attack_timer_length:float = 0.5
 
 @export_group("Misc")
 @export var blob_size: float = 2.0
@@ -21,9 +22,12 @@ var last_direction = "s"
 @export var max_health:int = 100
 @export var current_health:int = 100
 # 2. State Pacing Variables
-var target_player: CharacterBody2D = null
+@onready var target_player: CharacterBody2D = null;
+
 var patrol_target: Vector2 = Vector2.ZERO
 var spawn_position: Vector2 = Vector2.ZERO
+var attack_timer: Timer;
+
 @onready var nav_agent: NavigationAgent2D = $NavigationAgent2D
 @onready var detector: Area2D = $PlayerDetector
 @onready var hitbox: Hitbox = $BlobHitbox
@@ -33,6 +37,13 @@ var spawn_position: Vector2 = Vector2.ZERO
 func _ready() -> void:
 	spawn_position = global_position
 	patrol_target = spawn_position
+	
+	attack_timer = Timer.new()
+	attack_timer.wait_time = attack_timer_length;
+	attack_timer.autostart = true;
+	attack_timer.one_shot = true;
+	add_child(attack_timer)
+	
 	# Connect detection signals
 	detector.body_entered.connect(_on_player_entered)
 	detector.body_exited.connect(_on_player_exited)
@@ -41,6 +52,7 @@ func _ready() -> void:
 	# Turn off attack hitbox by default until in the attack state
 	hitbox.get_node("CollisionShape2D").disabled = true
 	enter_state(State.IDLE)
+	
 func _physics_process(delta: float) -> void:
 	match current_state:
 		State.IDLE:
@@ -50,14 +62,14 @@ func _physics_process(delta: float) -> void:
 		State.CHASE:
 			process_chase_state(delta)
 		State.ATTACK:
-			process_attack_state(delta)
+			execute_blob_attack()
 	move_and_slide()
 	
 	
 # 3. State Management Transition Logic
 func enter_state(new_state: State) -> void:
 	current_state = new_state
-	print("Blob State: ", new_state)
+	print("Blob State: ", State.find_key(new_state))
 	# Reset states safely
 	if current_state != State.ATTACK:
 		hitbox.get_node("CollisionShape2D").set_deferred("disabled", true)
@@ -74,12 +86,12 @@ func enter_state(new_state: State) -> void:
 			execute_blob_attack()
 
 # --- BEHAVIOR 1: IDLE ---
-func process_idle_state(delta: float) -> void:
+func process_idle_state(delta) -> void:
 	var squish = 1.0 + (sin(Time.get_ticks_msec() * 0.005) * 0.05)
 	sprite.scale = Vector2(1.0 + (1.0 - squish), squish) * blob_size
 	
 # --- BEHAVIOR 2: PATROL ---
-func process_patrol_state(delta: float) -> void:
+func process_patrol_state(delta) -> void:
 	# Procedural bounce movement animation for the blob
 	var bounce = 1.0 + (abs(sin(Time.get_ticks_msec() * 0.01)) * 0.15)
 	sprite.scale = Vector2(bounce, 2.0 - bounce) * blob_size
@@ -93,12 +105,11 @@ func process_patrol_state(delta: float) -> void:
 		enter_state(State.IDLE)
 		return
 		
-	var next_path_pos = nav_agent.get_next_path_position()
-	var dir = global_position.direction_to(next_path_pos).normalized()
+	var next_path_pos = nav_agent.target_position
+	var dir = global_position.direction_to(next_path_pos)
 	update_direction(dir)
 
 	velocity = dir * walk_speed
-	
 	# Flip sprite asset based on traveling direction
 	if velocity.x != 0:
 		sprite.flip_h = velocity.x < 0
@@ -113,10 +124,11 @@ func _on_patrol_timer_timeout() -> void:
 		enter_state(State.PATROL)
 		
 # --- BEHAVIOR 3: CHASE ---
-func process_chase_state(delta: float) -> void:
+func process_chase_state(delta) -> void:
 	if not target_player:
 		enter_state(State.IDLE)
 		return
+		
 	# Quick, intense bounce scale logic for visual aggression
 	var angry_bounce = 1.0 + (abs(sin(Time.get_ticks_msec() * 0.02)) * 0.2)
 	sprite.scale = Vector2(angry_bounce, 2.0 - angry_bounce) * blob_size
@@ -129,12 +141,11 @@ func process_chase_state(delta: float) -> void:
 	
 	# Standard navigation path tracking toward live player vector coordinates
 	nav_agent.target_position = target_player.global_position
-	var next_path_pos = nav_agent.get_next_path_position()
+	var next_path_pos = nav_agent.target_position
 	var dir = global_position.direction_to(next_path_pos).normalized()
 	update_direction(dir)
 	velocity = dir * chase_speed
 	sprite.flip_h = velocity.x < 0
-	
 	
 # --- BEHAVIOR 4: ATTACK ---
 func process_attack_state(delta: float) -> void:
@@ -143,6 +154,9 @@ func process_attack_state(delta: float) -> void:
 func execute_blob_attack() -> void:
 	if not target_player:
 		enter_state(State.IDLE)
+		return
+	
+	if not attack_timer.is_stopped(): 
 		return
 	
 	# Direction vector towards the player
@@ -176,6 +190,9 @@ func execute_blob_attack() -> void:
 			enter_state(State.CHASE)
 		else:
 			enter_state(State.IDLE))
+			
+	attack_timer.start()
+	
 
 
 # 4. Sensor Collision Callback Routines
@@ -217,6 +234,7 @@ func take_damage(amount: int) -> void:
 		
 func die() -> void:
 	# Safely vanish the monster scene tree instance cleanly between engine steps
+	sprite.stop()
 	sprite.play("death_" + last_direction)
 	await sprite.animation_finished
 	queue_free()

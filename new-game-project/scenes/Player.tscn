@@ -1698,8 +1698,7 @@ shape = SubResource("CapsuleShape2D_4s4lg")
 [node name="PlayerHurtbox" type="Area2D" parent="." unique_id=1896231262]
 position = Vector2(0, 0.83333343)
 scale = Vector2(1.2, 1.2)
-collision_layer = 2
-collision_mask = 0
+collision_mask = 2
 script = ExtResource("3_3li8b")
 
 [node name="CollisionShape2D2" type="CollisionShape2D" parent="PlayerHurtbox" unique_id=1901935136]
@@ -1715,7 +1714,7 @@ script = ExtResource("39_j2b1d")
 position = Vector2(-9.027778, -1.3888891)
 rotation = -1.5819741
 scale = Vector2(9.257305, 5.754021)
-collision_mask = 4
+collision_mask = 2
 script = ExtResource("40_cs1tg")
 damage = 25
 
@@ -1724,9 +1723,6 @@ position = Vector2(0.012124002, 9.0524235)
 rotation = -0.00020877458
 scale = Vector2(1.2, 1.2)
 shape = SubResource("RectangleShape2D_cs1tg")
-
-[node name="Marker2D" type="Marker2D" parent="WeaponSprite" unique_id=1360898800]
-position = Vector2(-2.0833335, 4.861111)
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=328410020]
 scale = Vector2(1.2, 1.2)
