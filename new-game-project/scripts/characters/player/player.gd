@@ -85,9 +85,9 @@ func update_direction(input_direction):
 
 func update_movement_animation(input_direction):
 	if input_direction == Vector2.ZERO:
-		animated_sprite.play("idle_" + last_direction)
+		play_movement_animation("idle")
 	else:
-		animated_sprite.play("walk_" + last_direction)
+		play_movement_animation("run")
 
 
 func play_action_animation(action_name):
@@ -96,17 +96,25 @@ func play_action_animation(action_name):
 
 	is_action_playing = true
 	animated_sprite.play(action_name + "_" + last_direction)
+	
+func play_movement_animation(animation_name):
+	if(last_direction == "w"):
+		animated_sprite.flip_h = true
+	else:
+		animated_sprite.flip_h = false
+		
+	animated_sprite.play(animation_name + "_" + last_direction)
 
 
 func _unhandled_input(event):
 	if is_dead:
 		return
 
-	if event.is_action_pressed("attack"):
-		$WeaponSprite.attacking.emit(true)
-		play_action_animation("attack")
-		await $AnimatedSprite2D.animation_finished
-		$WeaponSprite.attacking.emit(false)
+	#if event.is_action_pressed("attack"):
+		#$WeaponSprite.attacking.emit(true)
+		#play_action_animation("attack")
+		#await $AnimatedSprite2D.animation_finished
+		#$WeaponSprite.attacking.emit(false)
 	
 	elif event.is_action_pressed("test_hit"):
 		play_action_animation("hit")
